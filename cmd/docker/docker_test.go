@@ -5,9 +5,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/sirupsen/logrus"
 	"github.com/docker/cli/cli/command"
 	"github.com/docker/cli/cli/debug"
+	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -3,8 +3,8 @@ package command
 import (
 	"sync"
 
-	"github.com/sirupsen/logrus"
 	eventtypes "github.com/docker/docker/api/types/events"
+	"github.com/sirupsen/logrus"
 )
 
 // EventHandler is abstract interface for user to customize
