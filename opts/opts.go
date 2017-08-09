@@ -8,6 +8,11 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/docker/docker/api/types/swarm"
+	"github.com/docker/docker/daemon/cluster/convert"
+	mobyopts "github.com/docker/docker/opts"
+	"github.com/docker/swarmkit/api/genericresource"
+
 	"github.com/docker/docker/api/types/filters"
 	units "github.com/docker/go-units"
 )
@@ -485,4 +490,39 @@ func (m *MemSwapBytes) String() string {
 func (m *MemSwapBytes) UnmarshalJSON(s []byte) error {
 	b := MemBytes(*m)
 	return b.UnmarshalJSON(s)
+}
+
+type GenericResource []swarm.GenericResource
+
+// Set sets the value of the MemSwapBytes by passing a string
+func (r *GenericResource) Set(value string) error {
+	if value == "" {
+		return nil
+	}
+
+	val, err := mobyopts.ParseGenericResources(value)
+	if err != nil {
+		return err
+	}
+
+	*r = val
+
+	return nil
+}
+
+// Type returns the type
+func (r *GenericResource) Type() string {
+	return "generic resource"
+}
+
+// Value returns the value in int64
+func (r *GenericResource) Value() []swarm.GenericResource {
+	return []swarm.GenericResource(*r)
+}
+
+func (r *GenericResource) String() string {
+	return strings.Join(
+		genericresource.EnvFormat(convert.GenericResourcesToGRPC(r.Value()), ""),
+		";",
+	)
 }

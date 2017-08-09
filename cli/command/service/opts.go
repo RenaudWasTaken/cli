@@ -222,17 +222,19 @@ func (opts updateOptions) rollbackConfig(flags *pflag.FlagSet) *swarm.UpdateConf
 }
 
 type resourceOptions struct {
-	limitCPU      opts.NanoCPUs
-	limitMemBytes opts.MemBytes
-	resCPU        opts.NanoCPUs
-	resMemBytes   opts.MemBytes
+	limitCPU            opts.NanoCPUs
+	limitMemBytes       opts.MemBytes
+	resCPU              opts.NanoCPUs
+	resMemBytes         opts.MemBytes
+	resGenericResources opts.GenericResource
 }
 
 func (r *resourceOptions) ToResourceRequirements() *swarm.ResourceRequirements {
 	return &swarm.ResourceRequirements{
 		Limits: &swarm.Resources{
-			NanoCPUs:    r.limitCPU.Value(),
-			MemoryBytes: r.limitMemBytes.Value(),
+			NanoCPUs:         r.limitCPU.Value(),
+			MemoryBytes:      r.limitMemBytes.Value(),
+			GenericResources: r.resGenericResources.Value(),
 		},
 		Reservations: &swarm.Resources{
 			NanoCPUs:    r.resCPU.Value(),

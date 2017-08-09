@@ -52,11 +52,14 @@ func newCreateCommand(dockerCli *command.DockerCli) *cobra.Command {
 	flags.Var(&opts.dns, flagDNS, "Set custom DNS servers")
 	flags.SetAnnotation(flagDNS, "version", []string{"1.25"})
 	flags.Var(&opts.dnsOption, flagDNSOption, "Set DNS options")
+	flags.Var(&opts.dnsOption, flagDNSOption, "Set DNS options")
 	flags.SetAnnotation(flagDNSOption, "version", []string{"1.25"})
 	flags.Var(&opts.dnsSearch, flagDNSSearch, "Set custom DNS search domains")
 	flags.SetAnnotation(flagDNSSearch, "version", []string{"1.25"})
 	flags.Var(&opts.hosts, flagHost, "Set one or more custom host-to-IP mappings (host:ip)")
+	flags.Var(&opts.hosts, flagHost, "Set one or more custom host-to-IP mappings (host:ip)")
 	flags.SetAnnotation(flagHost, "version", []string{"1.25"})
+	flags.Var(&opts.resources.resGenericResources, "generic-resources", "user defined resources request (e.g. gpu=3;fpga=1)")
 
 	flags.SetInterspersed(false)
 	return cmd
